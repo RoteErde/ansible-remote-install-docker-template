@@ -1,0 +1,13 @@
+---
+- hosts: testvm
+  become: yes
+  become_user: root
+  tasks:
+    - name: install go
+      apt:
+        name: golang
+        state: installed
+        update_cache: true
+
+  roles:
+    - { role: "nickjj.docker", tags: "docker",docker_version: "18.05.0",docker_channel: "edge",docker_apt_package_name: "{{ docker_version }}~{{ docker_edition }}~3-0~{{ ansible_distribution | lower }}" }
